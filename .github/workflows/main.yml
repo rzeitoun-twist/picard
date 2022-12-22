@@ -12,6 +12,7 @@ env:
   IMAGE_NAME: twist-r-d/er-picard
   USERNAME: rzeitoun
 
+jobs:
   deploy:
     runs-on: ubuntu-latest
 
