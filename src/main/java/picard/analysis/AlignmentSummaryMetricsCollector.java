@@ -65,7 +65,7 @@ public class AlignmentSummaryMetricsCollector extends SAMRecordAndReferenceMulti
     private final int MAPPING_QUALITY_THRESHOLD = 20;
 
     //The minimum quality a base has to meet in order to be consider hq_20
-    private static final int BASE_QUALITY_THRESHOLD = 20;
+    private static final int BASE_QUALITY_THRESHOLD = 25;
 
     //the adapter utility class
     private final AdapterUtility adapterUtility;
