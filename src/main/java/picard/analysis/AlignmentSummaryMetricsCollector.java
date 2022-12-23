@@ -293,7 +293,7 @@ public class AlignmentSummaryMetricsCollector extends SAMRecordAndReferenceMulti
                     metrics.PCT_CHIMERAS = MathUtil.divide(chimeras, (double) chimerasDenominator);
                     metrics.PF_INDEL_RATE = MathUtil.divide(indels, (double) metrics.PF_ALIGNED_BASES);
                     metrics.PF_MISMATCH_RATE = MathUtil.divide(mismatchHistogram.getSum(), (double) nonBisulfiteAlignedBases);
-                    metrics.PF_HQ_ERROR_RATE = MathUtil.divide(hqMismatchHistogram.getSum(), (double) hqNonBisulfiteAlignedBases);
+                    metrics.PF_HQ_ERROR_RATE = MathUtil.divide(hqMismatchHistogram.getSum(), (double) metrics.PF_HQ_ALIGNED_Q20_BASES);
 
                     metrics.PCT_HARDCLIP = MathUtil.divide(numHardClipped, totalBases);
                     metrics.PCT_SOFTCLIP = MathUtil.divide(numSoftClipped, totalBases);
@@ -446,10 +446,11 @@ public class AlignmentSummaryMetricsCollector extends SAMRecordAndReferenceMulti
                             }
                             if (qualities[readBaseIndex] >= baseQualityThreshold) {
                                 metrics.PF_HQ_ALIGNED_Q20_BASES++;
-                            }
-                            if (mismatch) {
-                                hqMismatchCount++;
-                            }
+                            
+                                if (mismatch) {
+                                    hqMismatchCount++;
+                                }
+                            }   
                         }
 
                         if (mismatch || SequenceUtil.isNoCall(readBases[readBaseIndex])) {
