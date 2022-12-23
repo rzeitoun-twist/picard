@@ -129,10 +129,10 @@ public class CollectAlignmentSummaryMetrics extends SinglePassSamProgram {
     @Argument(shortName="BS", doc="Whether the SAM or BAM file consists of bisulfite sequenced reads.")
     public boolean IS_BISULFITE_SEQUENCED = false;
 
-    @Argument(shortname="BQ", doc="Base-quality threshold score for high-quality mismatch calculation.")
+    @Argument(shortName="BQ", doc="Base-quality threshold score for high-quality mismatch calculation.")
     public int BASE_QUALITY_THRESHOLD = 20;
 
-    @Argument(shortname="MQ", doc="Map-quality threshold score for high-quality cutoff.")
+    @Argument(shortName="MQ", doc="Map-quality threshold score for high-quality cutoff.")
     public int MAP_QUALITY_THRESHOLD = 20;
 
     @Argument(doc = "A flag to disable the collection of actual alignment information. " +
