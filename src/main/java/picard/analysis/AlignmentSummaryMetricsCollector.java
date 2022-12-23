@@ -62,22 +62,25 @@ public class AlignmentSummaryMetricsCollector extends SAMRecordAndReferenceMulti
     private final boolean isBisulfiteSequenced;
 
     //The minimum mapping quality a base has to meet in order to be considered high quality
-    private final int MAPPING_QUALITY_THRESHOLD = 20;
+    private final int MAPPING_QUALITY_THRESHOLD;
 
     //The minimum quality a base has to meet in order to be consider hq_20
-    private static final int BASE_QUALITY_THRESHOLD = 25;
+    private static final int BASE_QUALITY_THRESHOLD;
 
     //the adapter utility class
     private final AdapterUtility adapterUtility;
 
     public AlignmentSummaryMetricsCollector(final Set<MetricAccumulationLevel> accumulationLevels, final List<SAMReadGroupRecord> samRgRecords,
                                             final boolean doRefMetrics, final List<String> adapterSequence, final int maxInsertSize,
-                                            final Set<PairOrientation> expectedOrientations, final boolean isBisulfiteSequenced) {
+                                            final Set<PairOrientation> expectedOrientations, final boolean isBisulfiteSequenced,
+                                            final int baseQualityThreshold, final int mappingQualityThreshold) {
         this.doRefMetrics = doRefMetrics;
         this.adapterUtility = new AdapterUtility(adapterSequence);
         this.maxInsertSize = maxInsertSize;
         this.expectedOrientations = expectedOrientations;
         this.isBisulfiteSequenced = isBisulfiteSequenced;
+        this.BASE_QUALITY_THRESHOLD = baseQualityThreshold;
+        this.MAPPING_QUALITY_THRESHOLD = mappingQualityThreshold;
         setup(accumulationLevels, samRgRecords);
     }
 

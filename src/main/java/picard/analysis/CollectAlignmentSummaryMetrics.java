@@ -129,6 +129,12 @@ public class CollectAlignmentSummaryMetrics extends SinglePassSamProgram {
     @Argument(shortName="BS", doc="Whether the SAM or BAM file consists of bisulfite sequenced reads.")
     public boolean IS_BISULFITE_SEQUENCED = false;
 
+    @Argument(shortname="BQ", doc="Base-quality threshold score for high-quality mismatch calculation.")
+    public int BASE_QUALITY_THRESHOLD = 20;
+
+    @Argument(shortname="MQ", doc="Map-quality threshold score for high-quality cutoff.")
+    public int MAP_QUALITY_THRESHOLD = 20;
+
     @Argument(doc = "A flag to disable the collection of actual alignment information. " +
             "If false, tool will only count READS, PF_READS, and NOISE_READS. (For backwards compatibility).")
     public boolean COLLECT_ALIGNMENT_INFORMATION = true;
@@ -165,7 +171,7 @@ public class CollectAlignmentSummaryMetrics extends SinglePassSamProgram {
         }
 
         collector = new AlignmentSummaryMetricsCollector(METRIC_ACCUMULATION_LEVEL, header.getReadGroups(), COLLECT_ALIGNMENT_INFORMATION,
-                ADAPTER_SEQUENCE, MAX_INSERT_SIZE, EXPECTED_PAIR_ORIENTATIONS, IS_BISULFITE_SEQUENCED);
+                ADAPTER_SEQUENCE, MAX_INSERT_SIZE, EXPECTED_PAIR_ORIENTATIONS, IS_BISULFITE_SEQUENCED, BASE_QUALITY_THRESHOLD, MAP_QUALITY_THRESHOLD);
     }
 
     @Override protected void acceptRead(final SAMRecord rec, final ReferenceSequence ref) {
