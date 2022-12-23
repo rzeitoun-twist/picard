@@ -65,7 +65,7 @@ public class AlignmentSummaryMetricsCollector extends SAMRecordAndReferenceMulti
     private final int MAPPING_QUALITY_THRESHOLD;
 
     //The minimum quality a base has to meet in order to be consider hq_20
-    private static final int BASE_QUALITY_THRESHOLD;
+    private final int BASE_QUALITY_THRESHOLD;
 
     //the adapter utility class
     private final AdapterUtility adapterUtility;
@@ -79,7 +79,7 @@ public class AlignmentSummaryMetricsCollector extends SAMRecordAndReferenceMulti
         this.maxInsertSize = maxInsertSize;
         this.expectedOrientations = expectedOrientations;
         this.isBisulfiteSequenced = isBisulfiteSequenced;
-        BASE_QUALITY_THRESHOLD = baseQualityThreshold;
+        this.BASE_QUALITY_THRESHOLD = baseQualityThreshold;
         this.MAPPING_QUALITY_THRESHOLD = mappingQualityThreshold;
         setup(accumulationLevels, samRgRecords);
     }
@@ -258,7 +258,7 @@ public class AlignmentSummaryMetricsCollector extends SAMRecordAndReferenceMulti
             }
 
             collectReadData(record);
-            collectQualityData(record, ref);
+            collectQualityData(record, ref, BASE_QUALITY_THRESHOLD);
         }
 
         @Override
@@ -392,7 +392,7 @@ public class AlignmentSummaryMetricsCollector extends SAMRecordAndReferenceMulti
             }
         }
 
-        private void collectQualityData(final SAMRecord record, final ReferenceSequence reference) {
+        private void collectQualityData(final SAMRecord record, final ReferenceSequence reference, final int baseQualityThreshold) {
             // NB: for read count metrics, do not include supplementary records, but for base count metrics, do include supplementary records.
 
             // If the read isn't an aligned PF read then look at the read for no-calls
@@ -444,7 +444,7 @@ public class AlignmentSummaryMetricsCollector extends SAMRecordAndReferenceMulti
                             if (!bisulfiteBase) {
                                 hqNonBisulfiteAlignedBases++;
                             }
-                            if (qualities[readBaseIndex] >= BASE_QUALITY_THRESHOLD) {
+                            if (qualities[readBaseIndex] >= baseQualityThreshold) {
                                 metrics.PF_HQ_ALIGNED_Q20_BASES++;
                             }
                             if (mismatch) {
