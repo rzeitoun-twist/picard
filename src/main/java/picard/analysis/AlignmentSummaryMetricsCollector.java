@@ -79,7 +79,7 @@ public class AlignmentSummaryMetricsCollector extends SAMRecordAndReferenceMulti
         this.maxInsertSize = maxInsertSize;
         this.expectedOrientations = expectedOrientations;
         this.isBisulfiteSequenced = isBisulfiteSequenced;
-        this.BASE_QUALITY_THRESHOLD = baseQualityThreshold;
+        BASE_QUALITY_THRESHOLD = baseQualityThreshold;
         this.MAPPING_QUALITY_THRESHOLD = mappingQualityThreshold;
         setup(accumulationLevels, samRgRecords);
     }
